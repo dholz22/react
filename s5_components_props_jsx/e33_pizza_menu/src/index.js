@@ -69,29 +69,27 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map(
-          ({ name, ingredients, photoName, price, soldOut }, index) => (
-            <Pizza
-              key={index}
-              name={name}
-              ingredients={ingredients}
-              photoSrc={photoName}
-              photoAlt={name}
-              price={price}
-              soldOut={soldOut}
-            />
-          )
-        )}
-      </ul>
+      {pizzaData?.length > 0 && (
+        <ul className="pizzas">
+          {pizzaData.map((pizza, index) => (
+            <Pizza key={index} {...pizza} />
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
 
-function Pizza({ name, ingredients, photoSrc, photoAlt, price, soldOut }) {
+function Pizza({ name, ingredients, photoName, price, soldOut }) {
   return (
     <li className={`pizza ${soldOut ? "sold-out" : ""}`}>
-      <img src={photoSrc} alt={photoAlt} />
+      <img
+        src={photoName}
+        alt={photoName
+          .split("/")
+          ?.at(-1)
+          ?.replace(/\.(jpe?g|png)/g, "")}
+      />
 
       <div>
         <h3>{name}</h3>
